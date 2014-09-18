@@ -15,14 +15,17 @@ var findFriends = function(username, depth) {
 		if(response && response.code == 200) {
 			console.log(response.code);
 			var result = response.body.match(re);
-			var new_result = [];
-			result.forEach(function(item) {
-				var slash = item.indexOf('/');
-				var question_mark = item.lastIndexOf('?');
-				item = item.substring(slash+1, question_mark);
-				new_result.push.apply(new_result, findFriends(item, depth+1));
-			});
-			result.push.apply(result, new_result);
+			if(result.length > 0) {
+				var new_result = [];
+				result.forEach(function(item) {
+					var slash = item.indexOf('/');
+					var question_mark = item.lastIndexOf('?');
+					item = item.substring(slash+1, question_mark);
+					console.log(item);
+					new_result.push.apply(new_result, findFriends(item, depth+1));
+				});
+				result.push.apply(result, new_result);
+			}
 			return result;
 		} else
 			return [];
