@@ -8,14 +8,14 @@ var max_depth = 1;
 var findFriends = function(username, depth) {
 	if(depth > max_depth)
 		return [];
-	unirest.get('https://facebook.com/'+username+'/friends')
+	unirest.get('https://www.facebook.com/'+username+'/friends')
 	.headers(config.header)
 	.encoding(config.encoding)
 	.end(function (response) {
 		if(response && response.code == 200) {
 			console.log(response.code);
 			var result = response.body.match(re);
-			if(result.length > 0) {
+			if(result && result.length > 0) {
 				var new_result = [];
 				result.forEach(function(item) {
 					var slash = item.indexOf('/');
